@@ -1,4 +1,16 @@
-function Header() {
+import { parseDealsExcel } from '../utils/excelParser'
+
+function Header({ onImport }) {
+  async function handleImport(event) {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const records = await parseDealsExcel(file)
+    onImport(records)
+
+    alert(`导入成功，共识别 ${records.length} 条投放记录`)
+  }
+
   return (
     <header className="header">
       <div>
@@ -7,7 +19,16 @@ function Header() {
       </div>
 
       <div className="header-actions">
-        <button>导入Excel</button>
+        <label className="import-button">
+          导入Excel
+          <input
+            type="file"
+            accept=".xlsx,.xls,.csv"
+            onChange={handleImport}
+            style={{ display: 'none' }}
+          />
+        </label>
+
         <button>导出数据</button>
       </div>
     </header>

@@ -3,7 +3,8 @@ import './App.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import Dashboard from './pages/Dashboard/Dashboard'
-import ProductCenter from './pages/Products/ProductCenter.jsx'
+import ProductCenter from './pages/Products/ProductCenter'
+import GroupCenter from './pages/Groups/GroupCenter'
 
 function App() {
   const [records, setRecords] = useState(() => {
@@ -20,6 +21,10 @@ function App() {
   function renderPage() {
     if (currentPage === 'products') {
       return <ProductCenter records={records} />
+    }
+
+    if (currentPage === 'groups') {
+      return <GroupCenter records={records} />
     }
 
     return <Dashboard records={records} />

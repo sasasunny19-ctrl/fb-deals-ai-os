@@ -646,3 +646,277 @@ td:last-child {
     min-width: 980px;
   }
 }
+.status-pill.重点合作 {
+  background: #ffe8f1;
+  color: #d82f72;
+}
+
+.status-pill.继续合作 {
+  background: #f4f7ff;
+  color: #3454d1;
+}
+
+.status-pill.观察压价 {
+  background: #fffaf2;
+  color: #b97900;
+}
+
+.status-pill.暂停复盘 {
+  background: #fff4f4;
+  color: #c93a3a;
+}
+/* ===== Group Center Table Layout Fix ===== */
+
+.group-table-panel {
+  width: 100%;
+  overflow-x: auto;
+  padding: 24px 28px;
+}
+
+.group-table {
+  width: 100%;
+  min-width: 1150px;
+  table-layout: fixed;
+}
+
+.group-table th,
+.group-table td {
+  white-space: nowrap;
+  text-align: center;
+  padding: 14px 12px;
+  vertical-align: middle;
+}
+
+.group-table th:first-child,
+.group-table td:first-child {
+  width: 230px;
+  text-align: left;
+  padding-left: 18px;
+}
+
+.group-table th:nth-child(2),
+.group-table td:nth-child(2) {
+  width: 120px;
+}
+
+.group-table th:nth-child(3),
+.group-table td:nth-child(3) {
+  width: 100px;
+}
+
+.group-table th:nth-child(4),
+.group-table td:nth-child(4) {
+  width: 90px;
+}
+
+.group-table th:nth-child(5),
+.group-table td:nth-child(5) {
+  width: 90px;
+}
+
+.group-table th:nth-child(6),
+.group-table td:nth-child(6) {
+  width: 100px;
+}
+
+.group-table th:nth-child(7),
+.group-table td:nth-child(7) {
+  width: 100px;
+}
+
+.group-table th:nth-child(8),
+.group-table td:nth-child(8) {
+  width: 110px;
+}
+
+.group-table th:last-child,
+.group-table td:last-child {
+  width: 120px;
+}
+/* ===== 群组名称自动换行 ===== */
+
+.group-table th:first-child,
+.group-table td:first-child {
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.5;
+  text-align: left;
+  padding-left: 18px;
+}
+
+.group-table tr {
+  min-height: 58px;
+}
+
+.group-table td {
+  vertical-align: middle;
+}
+/* ===== Group Center Full Layout v3 ===== */
+
+.group-center-panel {
+  width: 100%;
+  padding: 24px 28px;
+  overflow: hidden;
+}
+
+.group-panel-title {
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.group-panel-title > div:first-child {
+  min-width: 220px;
+}
+
+.group-panel-title > div:first-child span {
+  display: block;
+  margin-top: 6px;
+  color: #8a7a86;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.group-sort-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  max-width: 560px;
+}
+
+.group-sort-buttons button {
+  border: 1px solid #f0c8d8;
+  background: #fff;
+  color: #d82f72;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.group-sort-buttons button.active {
+  background: #d82f72;
+  color: #fff;
+}
+
+.group-sort-buttons button:hover {
+  background: #ffe8f1;
+}
+
+.group-sort-buttons button.active:hover {
+  background: #d82f72;
+}
+
+.group-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 18px;
+}
+
+.group-center-table {
+  width: 100%;
+  min-width: 1080px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+.group-center-table th,
+.group-center-table td {
+  border-bottom: 1px solid #f5dce6;
+  padding: 14px 10px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.group-center-table th {
+  background: #fff3f8;
+  color: #b51f5d;
+  font-weight: 800;
+}
+
+.group-center-table .col-group-name {
+  width: 260px;
+}
+
+.group-center-table .col-gmv {
+  width: 120px;
+}
+
+.group-center-table .col-cost {
+  width: 95px;
+}
+
+.group-center-table .col-roas {
+  width: 80px;
+}
+
+.group-center-table .col-orders {
+  width: 80px;
+}
+
+.group-center-table .col-launches {
+  width: 95px;
+}
+
+.group-center-table .col-sku {
+  width: 90px;
+}
+
+.group-center-table .col-score {
+  width: 95px;
+}
+
+.group-center-table .col-status {
+  width: 120px;
+}
+
+.group-center-table .group-name-cell {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  text-align: left !important;
+  line-height: 1.45;
+  font-weight: 700;
+  padding-left: 16px;
+}
+
+.group-center-table tbody tr:hover {
+  background: #fff8fb;
+}
+
+.status-pill.重点合作 {
+  background: #ffe8f1;
+  color: #d82f72;
+}
+
+.status-pill.继续合作 {
+  background: #f4f7ff;
+  color: #3454d1;
+}
+
+.status-pill.观察压价 {
+  background: #fffaf2;
+  color: #b97900;
+}
+
+.status-pill.暂停复盘 {
+  background: #fff4f4;
+  color: #c93a3a;
+}
+
+@media (max-width: 1200px) {
+  .group-panel-title {
+    flex-direction: column;
+  }
+
+  .group-sort-buttons {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}

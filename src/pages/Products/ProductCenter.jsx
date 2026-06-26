@@ -169,7 +169,7 @@ function ProductCenter({ records }) {
         </div>
       </section>
 
-      <section className="panel product-table-panel">
+      <section className="panel group-table-panel">
         <div className="panel-title product-panel-title">
           <div>
             <h3>产品表现排行榜</h3>
@@ -189,7 +189,7 @@ function ProductCenter({ records }) {
           </div>
         </div>
 
-        <table className="product-table">
+        <table className="group-table">
           <thead>
             <tr>
               <th>SKU</th>

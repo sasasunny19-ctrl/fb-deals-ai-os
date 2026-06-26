@@ -373,3 +373,80 @@ td:last-child {
     grid-template-columns: 1fr;
   }
 }
+/* ===== Data Quality Module v2 ===== */
+
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.quality-card {
+  background: #ffffff;
+  border: 1px solid #f2d3df;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 12px 28px rgba(197, 47, 112, 0.05);
+}
+
+.quality-card p {
+  margin: 0;
+  color: #8a7a86;
+  font-size: 14px;
+}
+
+.quality-card h3 {
+  margin: 10px 0 6px;
+  font-size: 24px;
+}
+
+.quality-card span {
+  color: #d82f72;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.quality-card.warning {
+  background: #fffaf2;
+  border-color: #f3dfb8;
+}
+
+.quality-card.warning span {
+  color: #b97900;
+}
+
+.quality-card.danger {
+  background: #fff4f4;
+  border-color: #f0bcbc;
+}
+
+.quality-card.danger span {
+  color: #c93a3a;
+}
+
+.clean-chart {
+  overflow: visible;
+}
+
+.month-labels {
+  overflow: visible;
+  justify-content: space-around;
+}
+
+.month-labels span {
+  min-width: auto;
+  font-size: 14px;
+}
+
+@media (max-width: 1100px) {
+  .quality-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .quality-grid {
+    grid-template-columns: 1fr;
+  }
+}

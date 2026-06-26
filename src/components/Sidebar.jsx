@@ -1,4 +1,16 @@
-function Sidebar() {
+const menuItems = [
+  { key: 'dashboard', label: '总览驾驶舱' },
+  { key: 'products', label: '产品中心' },
+  { key: 'groups', label: '群组中心' },
+  { key: 'campaigns', label: '投放中心' },
+  { key: 'tracking', label: 'Tracking中心' },
+  { key: 'analytics', label: '数据分析' },
+  { key: 'ai', label: 'AI决策中心' },
+  { key: 'reports', label: '月报中心' },
+  { key: 'settings', label: '系统设置' },
+]
+
+function Sidebar({ currentPage, onPageChange }) {
   return (
     <aside className="sidebar">
       <div className="brand">
@@ -10,15 +22,15 @@ function Sidebar() {
       </div>
 
       <nav>
-        <button className="active">总览驾驶舱</button>
-        <button>产品中心</button>
-        <button>群组中心</button>
-        <button>投放中心</button>
-        <button>Tracking中心</button>
-        <button>数据分析</button>
-        <button>AI决策中心</button>
-        <button>月报中心</button>
-        <button>系统设置</button>
+        {menuItems.map((item) => (
+          <button
+            key={item.key}
+            className={currentPage === item.key ? 'active' : ''}
+            onClick={() => onPageChange(item.key)}
+          >
+            {item.label}
+          </button>
+        ))}
       </nav>
 
       <div className="side-tip">

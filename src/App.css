@@ -450,3 +450,199 @@ td:last-child {
     grid-template-columns: 1fr;
   }
 }
+.page-title {
+  background: #fff;
+  border: 1px solid #f2d3df;
+  border-radius: 22px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 14px 36px rgba(197, 47, 112, 0.06);
+}
+
+.page-title h2 {
+  margin: 0 0 8px;
+  font-size: 26px;
+}
+
+.page-title p {
+  margin: 0;
+  color: #8a7a86;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  background: #fff3f8;
+  color: #d82f72;
+}
+
+.status-pill.重点加码 {
+  background: #ffe8f1;
+  color: #d82f72;
+}
+
+.status-pill.继续测试 {
+  background: #f4f7ff;
+  color: #3454d1;
+}
+
+.status-pill.观察压价 {
+  background: #fffaf2;
+  color: #b97900;
+}
+
+.status-pill.暂停复盘 {
+  background: #fff4f4;
+  color: #c93a3a;
+}
+.product-panel-title {
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.product-panel-title > div:first-child span {
+  color: #8a7a86;
+  font-size: 14px;
+}
+
+.sort-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.sort-buttons button {
+  border: 1px solid #f0c8d8;
+  background: #fff;
+  color: #d82f72;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sort-buttons button.active {
+  background: #d82f72;
+  color: #fff;
+}
+
+.sort-buttons button:hover {
+  background: #ffe8f1;
+}
+
+.sort-buttons button.active:hover {
+  background: #d82f72;
+}
+/* ===== Product Center Layout Fix v2 ===== */
+
+.sidebar {
+  width: 210px;
+  padding: 22px 16px;
+}
+
+.brand h2 {
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.brand p {
+  font-size: 11px;
+}
+
+.main {
+  max-width: none;
+  width: calc(100vw - 210px);
+  margin: 0;
+  padding: 24px 32px;
+}
+
+.page-title {
+  text-align: center;
+}
+
+.product-table-panel {
+  width: 100%;
+  overflow-x: visible;
+}
+
+.product-table-panel .panel-title {
+  align-items: center;
+}
+
+.product-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.product-table th,
+.product-table td {
+  white-space: nowrap;
+  text-align: center;
+  padding: 14px 10px;
+}
+
+.product-table th:first-child,
+.product-table td:first-child {
+  width: 22%;
+  text-align: left;
+  padding-left: 18px;
+}
+
+.product-table th:nth-child(2),
+.product-table td:nth-child(2) {
+  width: 13%;
+}
+
+.product-table th:nth-child(3),
+.product-table td:nth-child(3) {
+  width: 11%;
+}
+
+.product-table th:nth-child(4),
+.product-table td:nth-child(4) {
+  width: 9%;
+}
+
+.product-table th:nth-child(5),
+.product-table td:nth-child(5) {
+  width: 9%;
+}
+
+.product-table th:nth-child(6),
+.product-table td:nth-child(6) {
+  width: 10%;
+}
+
+.product-table th:nth-child(7),
+.product-table td:nth-child(7) {
+  width: 11%;
+}
+
+.product-table th:last-child,
+.product-table td:last-child {
+  width: 15%;
+}
+
+.sort-buttons {
+  max-width: 520px;
+}
+
+@media (max-width: 1200px) {
+  .main {
+    padding: 20px;
+  }
+
+  .product-table-panel {
+    overflow-x: auto;
+  }
+
+  .product-table {
+    min-width: 980px;
+  }
+}

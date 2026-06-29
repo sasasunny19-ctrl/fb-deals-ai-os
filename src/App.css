@@ -1109,3 +1109,34 @@ td:last-child {
 .campaign-table td:nth-child(5) {
   width: 220px;
 }
+/* ===== Analytics table compact fix ===== */
+
+.analysis-grid .panel table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.analysis-grid .panel th,
+.analysis-grid .panel td {
+  text-align: center;
+  padding: 12px 10px;
+  white-space: nowrap;
+}
+
+.analysis-grid .panel th:first-child,
+.analysis-grid .panel td:first-child {
+  width: 18%;
+  min-width: 0;
+  text-align: center;
+  padding-left: 10px;
+}
+
+.analysis-grid .panel th:not(:first-child),
+.analysis-grid .panel td:not(:first-child) {
+  width: 20.5%;
+}
+
+.analysis-grid .panel {
+  overflow-x: visible;
+}

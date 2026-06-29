@@ -7,6 +7,7 @@ import ProductCenter from './pages/Products/ProductCenter'
 import GroupCenter from './pages/Groups/GroupCenter'
 import CampaignCenter from './pages/Campaigns/CampaignCenter'
 import TrackingCenter from './pages/Tracking/TrackingCenter'
+import AnalyticsCenter from './pages/Analytics/AnalyticsCenter'
 
 function App() {
   const [records, setRecords] = useState(() => {
@@ -37,6 +38,9 @@ function App() {
   }
   if (currentPage === 'tracking') {
   return <TrackingCenter records={records} />
+}
+if (currentPage === 'analytics') {
+  return <AnalyticsCenter records={records} />
 }
   
 

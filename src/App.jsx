@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Dashboard from './pages/Dashboard/Dashboard'
 import ProductCenter from './pages/Products/ProductCenter'
 import GroupCenter from './pages/Groups/GroupCenter'
+import CampaignCenter from './pages/Campaigns/CampaignCenter'
 
 function App() {
   const [records, setRecords] = useState(() => {
@@ -25,6 +26,10 @@ function App() {
 
     if (currentPage === 'groups') {
       return <GroupCenter records={records} />
+    }
+
+    if (currentPage === 'campaigns') {
+      return <CampaignCenter records={records} />
     }
 
     return <Dashboard records={records} />

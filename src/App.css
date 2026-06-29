@@ -920,3 +920,157 @@ td:last-child {
     max-width: none;
   }
 }
+/* ===== Campaign Center ===== */
+
+.campaign-panel {
+  width: 100%;
+  overflow: hidden;
+  padding: 24px 28px;
+}
+
+.campaign-panel-title {
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.campaign-panel-title > div:first-child span {
+  display: block;
+  margin-top: 6px;
+  color: #8a7a86;
+  font-size: 14px;
+}
+
+.campaign-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.campaign-filters select,
+.campaign-filters input {
+  border: 1px solid #f0c8d8;
+  background: #fff;
+  color: #4b3f49;
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+  min-width: 130px;
+}
+
+.campaign-filters input {
+  min-width: 180px;
+}
+
+.campaign-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 18px;
+}
+
+.campaign-table {
+  width: 100%;
+  min-width: 1250px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+.campaign-table th,
+.campaign-table td {
+  border-bottom: 1px solid #f5dce6;
+  padding: 14px 10px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.campaign-table th {
+  background: #fff3f8;
+  color: #b51f5d;
+  font-weight: 800;
+}
+
+.campaign-table th:nth-child(1),
+.campaign-table td:nth-child(1) {
+  width: 110px;
+}
+
+.campaign-table th:nth-child(2),
+.campaign-table td:nth-child(2) {
+  width: 90px;
+}
+
+.campaign-table th:nth-child(3),
+.campaign-table td:nth-child(3) {
+  width: 140px;
+}
+
+.campaign-table th:nth-child(4),
+.campaign-table td:nth-child(4) {
+  width: 260px;
+}
+
+.campaign-group-cell {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  line-height: 1.45;
+  text-align: left !important;
+}
+
+.campaign-table a {
+  color: #d82f72;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.status-pill.日期异常 {
+  background: #fff4f4;
+  color: #c93a3a;
+}
+
+.status-pill.非主口径 {
+  background: #fffaf2;
+  color: #b97900;
+}
+
+.status-pill.有GMV无花费 {
+  background: #fff4f4;
+  color: #c93a3a;
+}
+
+.status-pill.有花费无GMV {
+  background: #fff4f4;
+  color: #c93a3a;
+}
+
+.status-pill.高效投放 {
+  background: #ffe8f1;
+  color: #d82f72;
+}
+
+.status-pill.正常投放 {
+  background: #f4f7ff;
+  color: #3454d1;
+}
+
+.status-pill.观察投放 {
+  background: #fffaf2;
+  color: #b97900;
+}
+
+.status-pill.低效投放 {
+  background: #fff4f4;
+  color: #c93a3a;
+}
+
+@media (max-width: 1200px) {
+  .campaign-panel-title {
+    flex-direction: column;
+  }
+
+  .campaign-filters {
+    justify-content: flex-start;
+  }
+}

@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import ProductCenter from './pages/Products/ProductCenter'
 import GroupCenter from './pages/Groups/GroupCenter'
 import CampaignCenter from './pages/Campaigns/CampaignCenter'
+import TrackingCenter from './pages/Tracking/TrackingCenter'
 
 function App() {
   const [records, setRecords] = useState(() => {
@@ -34,6 +35,10 @@ function App() {
 
     return <Dashboard records={records} />
   }
+  if (currentPage === 'tracking') {
+  return <TrackingCenter records={records} />
+}
+  
 
   return (
     <div className="app">

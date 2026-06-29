@@ -1074,3 +1074,38 @@ td:last-child {
     justify-content: flex-start;
   }
 }
+/* ===== Tracking table compact fix ===== */
+
+.campaign-table {
+  min-width: 1100px;
+}
+
+.campaign-table th,
+.campaign-table td {
+  padding: 12px 8px;
+}
+
+.campaign-table th:nth-child(1),
+.campaign-table td:nth-child(1) {
+  width: 90px;
+}
+
+.campaign-table th:nth-child(2),
+.campaign-table td:nth-child(2) {
+  width: 70px;
+}
+
+.campaign-table th:nth-child(3),
+.campaign-table td:nth-child(3) {
+  width: 105px;
+}
+
+.campaign-table th:nth-child(4),
+.campaign-table td:nth-child(4) {
+  width: 140px;
+}
+
+.campaign-table th:nth-child(5),
+.campaign-table td:nth-child(5) {
+  width: 220px;
+}

@@ -16,82 +16,75 @@ function getRoas(gmv, cost) {
   return Number(cost) > 0 ? Number(gmv || 0) / Number(cost || 0) : 0
 }
 
-function getStatus(row) {
-  const roas = getRoas(row.gmv, row.cost)
-
-  if (!row.date || row.month === '未标注') return '日期异常'
-  if (Number(row.gmv) > 0 && Number(row.cost) === 0) return '有GMV无花费'
-  if (Number(row.cost) > 0 && Number(row.gmv) === 0) return '有花费无GMV'
-  if (roas >= 10) return '高效投放'
-  if (roas >= 5) return '正常投放'
-  if (roas >= 3) return '观察投放'
-  return '低效投放'
-}
-
-function CampaignCenter({ records }) {
+function TrackingCenter({ records }) {
   const [keyword, setKeyword] = useState('')
-  const [month, setMonth] = useState('all')
 
   const rows = useMemo(() => {
-    return records.map((row, index) => ({
-      id: row.id || index,
-      date: row.date || '未标注',
-      month: row.month || '未标注',
-      sku: row.sku || '未标注',
-      group: row.group || '未标注',
-      gmv: Number(row.gmv || 0),
-      cost: Number(row.cost || 0),
-      orders: Number(row.orders || 0),
-      postLink: row.postLink || '',
-      roas: getRoas(row.gmv, row.cost),
-      status: getStatus(row),
-    }))
+    return records.map((row, index) => {
+      const roas = getRoas(row.gmv, row.cost)
+
+      return {
+        id: row.id || index,
+        tracking: row.tracking || row.trackingId || `TRACK-${index + 1}`,
+        date: row.date || '未标注',
+        sku: row.sku || '未标注',
+        group: row.group || '未标注',
+        link: row.postLink || '',
+        gmv: Number(row.gmv || 0),
+        cost: Number(row.cost || 0),
+        orders: Number(row.orders || 0),
+        roas,
+        status:
+          roas >= 10
+            ? '高效Tracking'
+            : roas >= 5
+              ? '正常Tracking'
+              : roas >= 3
+                ? '观察Tracking'
+                : '低效Tracking',
+      }
+    })
   }, [records])
 
-  const monthOptions = Array.from(new Set(rows.map((row) => row.month))).sort()
-
   const filteredRows = rows.filter((row) => {
-    const matchMonth = month === 'all' || row.month === month
-    const text = `${row.sku} ${row.group} ${row.date} ${row.status}`.toLowerCase()
-    const matchKeyword = !keyword || text.includes(keyword.toLowerCase())
-    return matchMonth && matchKeyword
+    const text = `${row.tracking} ${row.sku} ${row.group} ${row.status}`.toLowerCase()
+    return !keyword || text.includes(keyword.toLowerCase())
   })
 
   const totalGMV = filteredRows.reduce((sum, row) => sum + row.gmv, 0)
   const totalCost = filteredRows.reduce((sum, row) => sum + row.cost, 0)
-  const totalOrders = filteredRows.reduce((sum, row) => sum + row.orders, 0)
   const totalRoas = totalCost > 0 ? totalGMV / totalCost : 0
 
   return (
     <>
       <section className="page-title">
         <div>
-          <h2>投放中心</h2>
-          <p>按每条合作记录查看SKU、群组、GMV、花费、出单和自动计算ROAS</p>
+          <h2>Tracking中心</h2>
+          <p>按Tracking维度追踪每条合作效果，链接统一显示为“查看”</p>
         </div>
       </section>
 
       <section className="quality-grid">
         <div className="quality-card">
-          <p>当前记录数</p>
+          <p>Tracking记录</p>
           <h3>{formatNumber(filteredRows.length)}</h3>
-          <span>按筛选结果</span>
+          <span>当前筛选结果</span>
         </div>
 
         <div className="quality-card">
-          <p>当前GMV</p>
+          <p>Tracking GMV</p>
           <h3>{formatMoney(totalGMV)}</h3>
           <span>筛选后汇总</span>
         </div>
 
         <div className="quality-card">
-          <p>当前花费</p>
+          <p>Tracking 花费</p>
           <h3>{formatMoney(totalCost)}</h3>
           <span>筛选后汇总</span>
         </div>
 
         <div className="quality-card warning">
-          <p>当前ROAS</p>
+          <p>Tracking ROAS</p>
           <h3>{formatNumber(totalRoas)}</h3>
           <span>GMV / 花费</span>
         </div>
@@ -100,24 +93,15 @@ function CampaignCenter({ records }) {
       <section className="panel campaign-panel">
         <div className="panel-title campaign-panel-title">
           <div>
-            <h3>投放明细表</h3>
-            <span>ROAS由系统自动计算，不依赖Excel原始ROAS列</span>
+            <h3>Tracking明细表</h3>
+            <span>已删除月份列，长链接收纳为“查看”，减少表格空白</span>
           </div>
 
           <div className="campaign-filters">
-            <select value={month} onChange={(e) => setMonth(e.target.value)}>
-              <option value="all">全部月份</option>
-              {monthOptions.map((item) => (
-                <option value={item} key={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-
             <input
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              placeholder="搜索SKU / 群组 / 状态"
+              placeholder="搜索Tracking / SKU / 群组"
             />
           </div>
         </div>
@@ -126,8 +110,9 @@ function CampaignCenter({ records }) {
           <table className="campaign-table">
             <thead>
               <tr>
+                <th>Tracking</th>
+                <th>链接</th>
                 <th>日期</th>
-                <th>月份</th>
                 <th>SKU</th>
                 <th>群组</th>
                 <th>GMV</th>
@@ -135,15 +120,23 @@ function CampaignCenter({ records }) {
                 <th>ROAS</th>
                 <th>出单</th>
                 <th>状态</th>
-                <th>链接</th>
               </tr>
             </thead>
 
             <tbody>
               {filteredRows.map((row) => (
                 <tr key={row.id}>
+                  <td>{row.tracking}</td>
+                  <td>
+                    {row.link ? (
+                      <a href={row.link} target="_blank" rel="noreferrer">
+                        查看
+                      </a>
+                    ) : (
+                      '-'
+                    )}
+                  </td>
                   <td>{row.date}</td>
-                  <td>{row.month}</td>
                   <td>{row.sku}</td>
                   <td className="campaign-group-cell" title={row.group}>
                     {row.group}
@@ -153,16 +146,9 @@ function CampaignCenter({ records }) {
                   <td>{formatNumber(row.roas)}</td>
                   <td>{formatNumber(row.orders)}</td>
                   <td>
-                    <span className={`status-pill ${row.status}`}>{row.status}</span>
-                  </td>
-                  <td>
-                    {row.postLink ? (
-                      <a href={row.postLink} target="_blank" rel="noreferrer">
-                        查看
-                      </a>
-                    ) : (
-                      '-'
-                    )}
+                    <span className={`status-pill ${row.status}`}>
+                      {row.status}
+                    </span>
                   </td>
                 </tr>
               ))}
@@ -174,4 +160,4 @@ function CampaignCenter({ records }) {
   )
 }
 
-export default CampaignCenter
+export default TrackingCenter

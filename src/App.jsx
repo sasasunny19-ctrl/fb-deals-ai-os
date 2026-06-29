@@ -8,6 +8,7 @@ import GroupCenter from './pages/Groups/GroupCenter'
 import CampaignCenter from './pages/Campaigns/CampaignCenter'
 import TrackingCenter from './pages/Tracking/TrackingCenter'
 import AnalyticsCenter from './pages/Analytics/AnalyticsCenter'
+import AICenter from './pages/AI/AICenter'
 
 function App() {
   const [records, setRecords] = useState(() => {
@@ -22,27 +23,15 @@ function App() {
   }, [records])
 
   function renderPage() {
-    if (currentPage === 'products') {
-      return <ProductCenter records={records} />
-    }
-
-    if (currentPage === 'groups') {
-      return <GroupCenter records={records} />
-    }
-
-    if (currentPage === 'campaigns') {
-      return <CampaignCenter records={records} />
-    }
+    if (currentPage === 'products') return <ProductCenter records={records} />
+    if (currentPage === 'groups') return <GroupCenter records={records} />
+    if (currentPage === 'campaigns') return <CampaignCenter records={records} />
+    if (currentPage === 'tracking') return <TrackingCenter records={records} />
+    if (currentPage === 'analytics') return <AnalyticsCenter records={records} />
+    if (currentPage === 'ai') return <AICenter records={records} />
 
     return <Dashboard records={records} />
   }
-  if (currentPage === 'tracking') {
-  return <TrackingCenter records={records} />
-}
-if (currentPage === 'analytics') {
-  return <AnalyticsCenter records={records} />
-}
-  
 
   return (
     <div className="app">

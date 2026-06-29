@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import DataTable from '../../components/DataTable'
 
 function formatMoney(value) {
   return `$${Number(value || 0).toLocaleString(undefined, {
@@ -62,6 +63,34 @@ function CampaignCenter({ records }) {
   const totalOrders = filteredRows.reduce((sum, row) => sum + row.orders, 0)
   const totalRoas = totalCost > 0 ? totalGMV / totalCost : 0
 
+  const columns = [
+    { key: 'date', title: '日期', width: 110 },
+    { key: 'month', title: '月份', width: 90 },
+    { key: 'sku', title: 'SKU', width: 140 },
+    { key: 'group', title: '群组', width: 260 },
+    { key: 'gmv', title: 'GMV', width: 120, render: (v) => formatMoney(v) },
+    { key: 'cost', title: '花费', width: 110, render: (v) => formatMoney(v) },
+    { key: 'roas', title: 'ROAS', width: 90, render: (v) => formatNumber(v) },
+    { key: 'orders', title: '出单', width: 90, render: (v) => formatNumber(v) },
+    {
+      key: 'status',
+      title: '状态',
+      width: 130,
+      render: (v) => <span className={`status-pill ${v}`}>{v}</span>,
+    },
+    {
+      key: 'postLink',
+      title: '链接',
+      width: 90,
+      render: (v) =>
+        v ? (
+          <a href={v} target="_blank" rel="noreferrer">查看</a>
+        ) : (
+          '-'
+        ),
+    },
+  ]
+
   return (
     <>
       <section className="page-title">
@@ -122,53 +151,7 @@ function CampaignCenter({ records }) {
           </div>
         </div>
 
-        <div className="campaign-table-wrap">
-          <table className="campaign-table">
-            <thead>
-              <tr>
-                <th>日期</th>
-                <th>月份</th>
-                <th>SKU</th>
-                <th>群组</th>
-                <th>GMV</th>
-                <th>花费</th>
-                <th>ROAS</th>
-                <th>出单</th>
-                <th>状态</th>
-                <th>链接</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {filteredRows.map((row) => (
-                <tr key={row.id}>
-                  <td>{row.date}</td>
-                  <td>{row.month}</td>
-                  <td>{row.sku}</td>
-                  <td className="campaign-group-cell" title={row.group}>
-                    {row.group}
-                  </td>
-                  <td>{formatMoney(row.gmv)}</td>
-                  <td>{formatMoney(row.cost)}</td>
-                  <td>{formatNumber(row.roas)}</td>
-                  <td>{formatNumber(row.orders)}</td>
-                  <td>
-                    <span className={`status-pill ${row.status}`}>{row.status}</span>
-                  </td>
-                  <td>
-                    {row.postLink ? (
-                      <a href={row.postLink} target="_blank" rel="noreferrer">
-                        查看
-                      </a>
-                    ) : (
-                      '-'
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable columns={columns} data={filteredRows} rowKey="id" />
       </section>
     </>
   )

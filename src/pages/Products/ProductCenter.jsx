@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DataTable from '../../components/DataTable'
 
 const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
 
@@ -48,7 +49,9 @@ function getMax(rows, key) {
 function ProductCenter({ records }) {
   const [sortType, setSortType] = useState('gmv')
 
-  const cleanRecords = records.filter((row) => TARGET_MONTHS.includes(row.month))
+  const cleanRecords = records.filter((row) =>
+    TARGET_MONTHS.includes(row.month)
+  )
 
   const baseRows = groupBy(cleanRecords, 'sku').map((item) => {
     const gmv = sum(item.items, 'gmv')
@@ -106,6 +109,54 @@ function ProductCenter({ records }) {
     { key: 'score', label: '按综合评分排序' },
   ]
 
+  const columns = [
+    { key: 'sku', title: 'SKU', width: 150 },
+    {
+      key: 'gmv',
+      title: 'GMV',
+      width: 120,
+      render: (v) => formatMoney(v),
+    },
+    {
+      key: 'cost',
+      title: '花费',
+      width: 120,
+      render: (v) => formatMoney(v),
+    },
+    {
+      key: 'roas',
+      title: 'ROAS',
+      width: 90,
+      render: (v) => formatNumber(v),
+    },
+    {
+      key: 'orders',
+      title: '出单',
+      width: 90,
+      render: (v) => formatNumber(v),
+    },
+    {
+      key: 'launches',
+      title: '投放',
+      width: 90,
+      render: (v) => formatNumber(v),
+    },
+    {
+      key: 'score',
+      title: '评分',
+      width: 90,
+      render: (v) => <strong>{formatNumber(v)}</strong>,
+    },
+    {
+      key: 'status',
+      title: '建议',
+      width: 130,
+      render: (v) => (
+        <span className={`status-pill ${v}`}>{v}</span>
+      ),
+    },
+  ]
+
   return (
     <>
       <section className="page-title">
@@ -151,7 +202,10 @@ function ProductCenter({ records }) {
         <div className="quality-card warning">
           <p>当前排序方式</p>
           <h3>
-            {sortButtons.find((item) => item.key === sortType)?.label.replace('按', '').replace('排序', '')}
+            {sortButtons
+              .find((item) => item.key === sortType)
+              ?.label.replace('按', '')
+              .replace('排序', '')}
           </h3>
           <span>可切换排序维度</span>
         </div>
@@ -169,7 +223,7 @@ function ProductCenter({ records }) {
         </div>
       </section>
 
-      <section className="panel group-table-panel">
+      <section className="panel product-table-panel">
         <div className="panel-title product-panel-title">
           <div>
             <h3>产品表现排行榜</h3>
@@ -189,41 +243,11 @@ function ProductCenter({ records }) {
           </div>
         </div>
 
-        <table className="group-table">
-          <thead>
-            <tr>
-              <th>SKU</th>
-              <th>GMV</th>
-              <th>花费</th>
-              <th>ROAS</th>
-              <th>出单</th>
-              <th>投放次数</th>
-              <th>综合评分</th>
-              <th>系统建议</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {sortedRows.map((product) => (
-              <tr key={product.sku}>
-                <td>{product.sku}</td>
-                <td>{formatMoney(product.gmv)}</td>
-                <td>{formatMoney(product.cost)}</td>
-                <td>{formatNumber(product.roas)}</td>
-                <td>{formatNumber(product.orders)}</td>
-                <td>{formatNumber(product.launches)}</td>
-                <td>
-                  <strong>{formatNumber(product.score)}</strong>
-                </td>
-                <td>
-                  <span className={`status-pill ${product.status}`}>
-                    {product.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={columns}
+          data={sortedRows}
+          rowKey="sku"
+        />
       </section>
     </>
   )

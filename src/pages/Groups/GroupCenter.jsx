@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DataTable from "../../components/DataTable"
 
 const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
 
@@ -112,6 +113,23 @@ function GroupCenter({ records }) {
     { key: 'score', label: '按综合评分排序' },
   ]
 
+  const columns = [
+    { key: 'group', title: '群组', width: 260 },
+    { key: 'gmv', title: 'GMV', width: 120, render: (v) => formatMoney(v) },
+    { key: 'cost', title: '花费', width: 110, render: (v) => formatMoney(v) },
+    { key: 'roas', title: 'ROAS', width: 90, render: (v) => formatNumber(v) },
+    { key: 'orders', title: '出单', width: 90, render: (v) => formatNumber(v) },
+    { key: 'launches', title: '投放', width: 90, render: (v) => formatNumber(v) },
+    { key: 'skuCount', title: 'SKU', width: 90, render: (v) => formatNumber(v) },
+    { key: 'score', title: '评分', width: 90, render: (v) => <strong>{formatNumber(v)}</strong> },
+    {
+      key: 'status',
+      title: '建议',
+      width: 130,
+      render: (v) => <span className={`status-pill ${v}`}>{v}</span>,
+    },
+  ]
+
   return (
     <>
       <section className="page-title">
@@ -198,59 +216,7 @@ function GroupCenter({ records }) {
           </div>
         </div>
 
-        <div className="group-table-wrap">
-          <table className="group-center-table">
-            <colgroup>
-              <col className="col-group-name" />
-              <col className="col-gmv" />
-              <col className="col-cost" />
-              <col className="col-roas" />
-              <col className="col-orders" />
-              <col className="col-launches" />
-              <col className="col-sku" />
-              <col className="col-score" />
-              <col className="col-status" />
-            </colgroup>
-
-            <thead>
-              <tr>
-                <th>群组</th>
-                <th>GMV</th>
-                <th>花费</th>
-                <th>ROAS</th>
-                <th>出单</th>
-                <th>投放次数</th>
-                <th>合作SKU</th>
-                <th>综合评分</th>
-                <th>系统建议</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {sortedRows.map((group) => (
-                <tr key={group.group}>
-                  <td className="group-name-cell" title={group.group}>
-                    {group.group}
-                  </td>
-                  <td>{formatMoney(group.gmv)}</td>
-                  <td>{formatMoney(group.cost)}</td>
-                  <td>{formatNumber(group.roas)}</td>
-                  <td>{formatNumber(group.orders)}</td>
-                  <td>{formatNumber(group.launches)}</td>
-                  <td>{formatNumber(group.skuCount)}</td>
-                  <td>
-                    <strong>{formatNumber(group.score)}</strong>
-                  </td>
-                  <td>
-                    <span className={`status-pill ${group.status}`}>
-                      {group.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable columns={columns} data={sortedRows} rowKey="group" />
       </section>
     </>
   )

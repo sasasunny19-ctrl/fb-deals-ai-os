@@ -1,4 +1,10 @@
-
+const TARGET_MONTHS = [
+  '2026-01',
+  '2026-02',
+  '2026-03',
+  '2026-04',
+  '2026-05',
+]
 
 function sum(rows, key) {
   return rows.reduce((total, row) => total + Number(row[key] || 0), 0)

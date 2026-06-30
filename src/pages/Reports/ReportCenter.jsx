@@ -153,6 +153,20 @@ ${problemGroups.length > 0
     navigator.clipboard.writeText(reportText)
     alert('月报已复制')
   }
+  function downloadReport() {
+  const blob = new Blob([reportText], {
+    type: 'text/plain;charset=utf-8',
+  })
+
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+
+  link.href = url
+  link.download = 'FB-Deals-1-5月运营月报.txt'
+  link.click()
+
+  URL.revokeObjectURL(url)
+}
 
   return (
     <>
@@ -228,9 +242,15 @@ ${problemGroups.length > 0
 
           <textarea className="ai-report-text" value={reportText} readOnly />
 
-          <button className="copy-button" onClick={copyReport}>
-            复制月报
-          </button>
+          <div className="report-actions">
+  <button className="copy-button" onClick={copyReport}>
+    复制月报
+  </button>
+
+  <button className="download-button" onClick={downloadReport}>
+    下载TXT月报
+  </button>
+</div>
         </div>
       </section>
 

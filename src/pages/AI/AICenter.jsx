@@ -1,4 +1,4 @@
-const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
+
 
 function sum(rows, key) {
   return rows.reduce((total, row) => total + Number(row[key] || 0), 0)
@@ -52,7 +52,7 @@ function getRank(rows, key) {
 }
 
 function AICenter({ records }) {
-  const cleanRecords = records.filter((row) => TARGET_MONTHS.includes(row.month))
+  const cleanRecords = records
 
   const totalGMV = sum(cleanRecords, 'gmv')
   const totalCost = sum(cleanRecords, 'cost')
@@ -78,10 +78,10 @@ function AICenter({ records }) {
     .filter((item) => item.roas > 0 && item.roas < 3)
     .slice(0, 8)
 
-  const reportText = `FB Deals 1-5月运营复盘：
+  const reportText = `FB Deals 当前筛选月份运营复盘：
 
 1. 整体表现
-1-5月累计GMV为 ${formatMoney(totalGMV)}，累计花费为 ${formatMoney(totalCost)}，整体ROAS为 ${formatNumber(totalRoas)}，累计出单 ${formatNumber(totalOrders)}。
+当前筛选月份累计GMV为 ${formatMoney(totalGMV)}，累计花费为 ${formatMoney(totalCost)}，整体ROAS为 ${formatNumber(totalRoas)}，累计出单 ${formatNumber(totalOrders)}。
 
 2. 重点加码方向
 建议优先加码 GMV较高且ROAS≥10 的产品与群组。当前重点产品包括：${scaleProducts
@@ -116,7 +116,7 @@ function AICenter({ records }) {
         <div className="quality-card">
           <p>清洗后GMV</p>
           <h3>{formatMoney(totalGMV)}</h3>
-          <span>1-5月主口径</span>
+          <span>当前筛选月份主口径</span>
         </div>
 
         <div className="quality-card">
@@ -147,7 +147,7 @@ function AICenter({ records }) {
 
           <div className="ai-box">
             <p>
-              1-5月整体ROAS为 <strong>{formatNumber(totalRoas)}</strong>。
+              当前筛选月份整体ROAS为 <strong>{formatNumber(totalRoas)}</strong>。
               {totalRoas >= 8
                 ? ' 当前整体投放效率较好，下月重点应从“扩大高效资源池”和“压缩低效资源”两方面提升规模。'
                 : ' 当前整体投放效率存在压力，下月应优先控制低效花费，减少无效群组合作。'}

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import DataTable from '../../components/DataTable'
 
 
-const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
 
 function sum(rows, key) {
   return rows.reduce((total, row) => total + Number(row[key] || 0), 0)
@@ -50,9 +49,7 @@ function getMax(rows, key) {
 function ProductCenter({ records }) {
   const [sortType, setSortType] = useState('gmv')
 
-  const cleanRecords = records.filter((row) =>
-    TARGET_MONTHS.includes(row.month)
-  )
+  const cleanRecords = records
 
   const baseRows = groupBy(cleanRecords, 'sku').map((item) => {
     const gmv = sum(item.items, 'gmv')
@@ -171,13 +168,13 @@ function ProductCenter({ records }) {
         <div className="quality-card">
           <p>产品总数</p>
           <h3>{formatNumber(productRows.length)}</h3>
-          <span>1-5月有效SKU</span>
+          <span>当前筛选月份有效SKU</span>
         </div>
 
         <div className="quality-card">
           <p>产品总GMV</p>
           <h3>{formatMoney(totalGMV)}</h3>
-          <span>1-5月口径</span>
+          <span>当前筛选月份口径</span>
         </div>
 
         <div className="quality-card warning">
@@ -219,7 +216,7 @@ function ProductCenter({ records }) {
 
         <div className="quality-card">
           <p>主分析口径</p>
-          <h3>1-5月</h3>
+          <h3>当前筛选月份</h3>
           <span>已排除异常月份</span>
         </div>
       </section>

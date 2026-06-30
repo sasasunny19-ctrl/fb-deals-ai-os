@@ -1,4 +1,4 @@
-const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
+
 
 function sum(rows, key) {
   return rows.reduce((total, row) => total + Number(row[key] || 0), 0)
@@ -52,8 +52,7 @@ function getRank(rows, key) {
 }
 
 function ReportCenter({ records = [] }) {
-  const cleanRecords = records.filter((row) => TARGET_MONTHS.includes(row.month))
-
+  const cleanRecords = records
   const totalGMV = sum(cleanRecords, 'gmv')
   const totalCost = sum(cleanRecords, 'cost')
   const totalOrders = sum(cleanRecords, 'orders')
@@ -73,10 +72,10 @@ function ReportCenter({ records = [] }) {
 
   const monthRank = getRank(cleanRecords, 'month')
 
-  const reportText = `FB Deals 1-5月运营月报
+  const reportText = `FB Deals 当前筛选月份运营月报
 
 一、整体数据
-1-5月累计GMV：${formatMoney(totalGMV)}
+当前筛选月份累计GMV：${formatMoney(totalGMV)}
 累计花费：${formatMoney(totalCost)}
 累计出单：${formatNumber(totalOrders)}
 整体ROAS：${formatNumber(totalRoas)}
@@ -162,7 +161,7 @@ ${problemGroups.length > 0
   const link = document.createElement('a')
 
   link.href = url
-  link.download = 'FB-Deals-1-5月运营月报.txt'
+  link.download = 'FB-Deals-当前筛选月份运营月报.txt'
   link.click()
 
   URL.revokeObjectURL(url)
@@ -173,7 +172,7 @@ ${problemGroups.length > 0
       <section className="page-title">
         <div>
           <h2>月报中心</h2>
-          <p>自动汇总1-5月GMV、ROAS、产品排行、群组排行和下月建议</p>
+          <p>自动汇总当前筛选月份GMV、ROAS、产品排行、群组排行和下月建议</p>
         </div>
       </section>
 
@@ -181,7 +180,7 @@ ${problemGroups.length > 0
         <div className="quality-card">
           <p>累计GMV</p>
           <h3>{formatMoney(totalGMV)}</h3>
-          <span>1-5月口径</span>
+          <span>当前筛选月份口径</span>
         </div>
 
         <div className="quality-card">

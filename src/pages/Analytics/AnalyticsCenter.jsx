@@ -1,4 +1,4 @@
-const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
+
 
 function sum(rows, key) {
   return rows.reduce((total, row) => total + Number(row[key] || 0), 0)
@@ -62,7 +62,7 @@ function getMonthLabel(month) {
 }
 
 function AnalyticsCenter({ records }) {
-  const cleanRecords = records.filter((row) => TARGET_MONTHS.includes(row.month))
+  const cleanRecords = records
 
   const totalGMV = sum(cleanRecords, 'gmv')
   const totalCost = sum(cleanRecords, 'cost')
@@ -108,13 +108,13 @@ function AnalyticsCenter({ records }) {
 
       <section className="quality-grid">
         <div className="quality-card">
-          <p>1-5月GMV</p>
+          <p>当前筛选月份GMV</p>
           <h3>{formatMoney(totalGMV)}</h3>
           <span>有效数据口径</span>
         </div>
 
         <div className="quality-card">
-          <p>1-5月花费</p>
+          <p>当前筛选月份花费</p>
           <h3>{formatMoney(totalCost)}</h3>
           <span>有效数据口径</span>
         </div>
@@ -128,7 +128,7 @@ function AnalyticsCenter({ records }) {
         <div className="quality-card">
           <p>总出单</p>
           <h3>{formatNumber(totalOrders)}</h3>
-          <span>1-5月有效记录</span>
+          <span>当前筛选月份有效记录</span>
         </div>
       </section>
 
@@ -172,7 +172,7 @@ function AnalyticsCenter({ records }) {
 
           <div className="ai-box">
             <p>
-              1-5月总GMV为 <strong>{formatMoney(totalGMV)}</strong>，
+              当前筛选月份总GMV为 <strong>{formatMoney(totalGMV)}</strong>，
               整体ROAS为 <strong>{formatNumber(totalRoas)}</strong>。
               GMV最高月份为 <strong>{bestMonth?.label}</strong>，
               ROAS最高月份为 <strong>{bestRoasMonth?.label}</strong>。

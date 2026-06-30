@@ -1,7 +1,13 @@
 import KpiCard from '../../components/KpiCard'
 import { products as mockProducts, groups as mockGroups } from '../../data/mockData'
 
-const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
+const TARGET_MONTHS = [
+  '2026-01',
+  '2026-02',
+  '2026-03',
+  '2026-04',
+  '2026-05',
+]
 
 function sum(rows, key) {
   return rows.reduce((total, row) => total + Number(row[key] || 0), 0)
@@ -73,7 +79,7 @@ function getRank(rows, key) {
     .sort((a, b) => b.gmv - a.gmv)
 }
 
-function getDataQuality(records) {
+function getDataQuality(records, TARGET_MONTHS) {
   const noDateRecords = records.filter((row) => !row.date || row.month === '未标注')
   const outOfRangeRecords = records.filter(
     (row) => row.month && row.month !== '未标注' && !TARGET_MONTHS.includes(row.month),
@@ -94,10 +100,18 @@ function getDataQuality(records) {
 }
 
 function Dashboard({ records }) {
+  const TARGET_MONTHS = [
+  ...new Set(
+    records
+      .map((r) => r.month)
+      .filter(Boolean)
+      .sort()
+  )
+]
   const hasRealData = records.length > 0
 
-  const cleanRecords = records.filter((row) => TARGET_MONTHS.includes(row.month))
-  const dataQuality = getDataQuality(records)
+  const cleanRecords = records
+  const dataQuality = getDataQuality(records, TARGET_MONTHS)
 
   const totalGMV = sum(cleanRecords, 'gmv')
   const totalCost = sum(cleanRecords, 'cost')
@@ -106,9 +120,9 @@ function Dashboard({ records }) {
 
   const kpis = hasRealData
     ? [
-        { label: '1-5月GMV', value: formatMoney(totalGMV), change: '已清洗数据' },
-        { label: '1-5月花费', value: formatMoney(totalCost), change: '已清洗数据' },
-        { label: '整体ROAS', value: formatNumber(totalROAS), change: '1-5月口径' },
+        { label: '当前筛选月份GMV', value: formatMoney(totalGMV), change: '已清洗数据' },
+        { label: '当前筛选月份花费', value: formatMoney(totalCost), change: '已清洗数据' },
+        { label: '整体ROAS', value: formatNumber(totalROAS), change: '当前筛选月份口径' },
         {
           label: '有效记录',
           value: formatNumber(cleanRecords.length),
@@ -175,7 +189,7 @@ function Dashboard({ records }) {
           </div>
 
           <div className="quality-card warning">
-            <p>非1-5月记录</p>
+            <p>非当前筛选月份记录</p>
             <h3>{formatNumber(dataQuality.outOfRangeRecords.length)}</h3>
             <span>不进入主看板</span>
           </div>
@@ -198,7 +212,7 @@ function Dashboard({ records }) {
         <div className="panel large">
           <div className="panel-title">
             <h3>月度GMV趋势</h3>
-            <span>{hasRealData ? '仅统计1-5月有效数据' : '演示数据'}</span>
+            <span>{hasRealData ? '仅统计当前筛选月份有效数据' : '演示数据'}</span>
           </div>
 
           {hasRealData ? (
@@ -253,7 +267,7 @@ function Dashboard({ records }) {
           <div className="ai-box">
             <p>
               {hasRealData
-                ? `本次导入 ${records.length} 条投放记录，其中 ${cleanRecords.length} 条进入1-5月主看板。清洗后总GMV为 ${formatMoney(totalGMV)}，整体ROAS为 ${formatNumber(totalROAS)}。建议优先加码ROAS较高且GMV稳定的产品，同时暂停或压价低ROAS群组。`
+                ? `本次导入 ${records.length} 条投放记录，其中 ${cleanRecords.length} 条进入当前筛选月份主看板。清洗后总GMV为 ${formatMoney(totalGMV)}，整体ROAS为 ${formatNumber(totalROAS)}。建议优先加码ROAS较高且GMV稳定的产品，同时暂停或压价低ROAS群组。`
                 : '本月GMV整体表现较好，但部分群组ROAS偏低。建议下月采用 70 / 20 / 10 策略：70%资源给高ROAS成熟款，20%资源测试潜力款，10%资源保留给新品。'}
             </p>
           </div>

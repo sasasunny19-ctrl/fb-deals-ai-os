@@ -42,7 +42,14 @@ function App() {
       <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
 
       <main className="main">
-        <Header onImport={setRecords} />
+        <Header
+  records={records}
+  onImport={setRecords}
+  onClear={() => {
+    setRecords([])
+    localStorage.removeItem('fbDealsRecords')
+  }}
+/>
         {renderPage()}
       </main>
     </div>

@@ -4,21 +4,36 @@ function DataTable({ columns, data, rowKey }) {
       <table className="table-v2">
         <thead>
           <tr>
-            {columns.map((col) => (
-              <th key={col.key} style={{ width: col.width }}>
+            {columns.map((col, index) => (
+              <td
+  key={col.key}
+  className={index === 0 ? "sticky-column" : ""}
+  style={
+    index === 0
+      ? {}
+      : {
+          width: col.width || 120,
+          minWidth: col.width || 120,
+        }
+  }
+>
                 {col.title}
-              </th>
+              </td>
             ))}
           </tr>
         </thead>
 
         <tbody>
-          {data.map((row, index) => (
-            <tr key={row[rowKey] || index}>
-              {columns.map((col, i) => (
+          {data.map((row, rowIndex) => (
+            <tr key={row[rowKey] || rowIndex}>
+              {columns.map((col, index) => (
                 <td
                   key={col.key}
-                  className={i === 0 ? "sticky-column" : ""}
+                  className={index === 0 ? "sticky-column" : ""}
+                  style={{
+                    width: col.width || 120,
+                    minWidth: col.width || 120,
+                  }}
                 >
                   {col.render
                     ? col.render(row[col.key], row)

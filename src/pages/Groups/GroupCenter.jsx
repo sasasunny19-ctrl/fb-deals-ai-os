@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import DataTable from "../../components/DataTable"
+import DataTable from '../../components/DataTable'
 
 const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
 
@@ -46,7 +46,7 @@ function getGroupStatus(roas, gmv, score) {
   return '暂停复盘'
 }
 
-function GroupCenter({ records }) {
+function GroupCenter({ records = [] }) {
   const [sortType, setSortType] = useState('gmv')
 
   const cleanRecords = records.filter((row) => TARGET_MONTHS.includes(row.month))
@@ -114,18 +114,72 @@ function GroupCenter({ records }) {
   ]
 
   const columns = [
-    { key: 'group', title: '群组', width: 260 },
-    { key: 'gmv', title: 'GMV', width: 120, render: (v) => formatMoney(v) },
-    { key: 'cost', title: '花费', width: 110, render: (v) => formatMoney(v) },
-    { key: 'roas', title: 'ROAS', width: 90, render: (v) => formatNumber(v) },
-    { key: 'orders', title: '出单', width: 90, render: (v) => formatNumber(v) },
-    { key: 'launches', title: '投放', width: 90, render: (v) => formatNumber(v) },
-    { key: 'skuCount', title: 'SKU', width: 90, render: (v) => formatNumber(v) },
-    { key: 'score', title: '评分', width: 90, render: (v) => <strong>{formatNumber(v)}</strong> },
+    {
+      key: 'group',
+      title: '群组',
+      width: 160,
+      render: (v) => (
+        <span
+          title={v}
+          style={{
+            display: 'inline-block',
+            maxWidth: 130,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            verticalAlign: 'middle',
+          }}
+        >
+          {v}
+        </span>
+      ),
+    },
+    {
+      key: 'gmv',
+      title: 'GMV',
+      width: 120,
+      render: (v) => formatMoney(v),
+    },
+    {
+      key: 'cost',
+      title: '花费',
+      width: 100,
+      render: (v) => formatMoney(v),
+    },
+    {
+      key: 'roas',
+      title: 'ROAS',
+      width: 80,
+      render: (v) => formatNumber(v),
+    },
+    {
+      key: 'orders',
+      title: '出单',
+      width: 80,
+      render: (v) => formatNumber(v),
+    },
+    {
+      key: 'launches',
+      title: '投放',
+      width: 80,
+      render: (v) => formatNumber(v),
+    },
+    {
+      key: 'skuCount',
+      title: 'SKU',
+      width: 80,
+      render: (v) => formatNumber(v),
+    },
+    {
+      key: 'score',
+      title: '评分',
+      width: 90,
+      render: (v) => <strong>{formatNumber(v)}</strong>,
+    },
     {
       key: 'status',
       title: '建议',
-      width: 130,
+      width: 120,
       render: (v) => <span className={`status-pill ${v}`}>{v}</span>,
     },
   ]

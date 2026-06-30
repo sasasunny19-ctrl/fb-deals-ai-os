@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import DataTable from '../../components/DataTable'
 
+
 const TARGET_MONTHS = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05']
 
 function sum(rows, key) {
@@ -110,7 +111,7 @@ function ProductCenter({ records }) {
   ]
 
   const columns = [
-    { key: 'sku', title: 'SKU', width: 150 },
+    { key: 'sku', title: 'SKU', width: 120 },
     {
       key: 'gmv',
       title: 'GMV',

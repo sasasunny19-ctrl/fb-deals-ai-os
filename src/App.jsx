@@ -10,6 +10,7 @@ import TrackingCenter from './pages/Tracking/TrackingCenter'
 import AnalyticsCenter from './pages/Analytics/AnalyticsCenter'
 import AICenter from './pages/AI/AICenter'
 import ReportCenter from './pages/Reports/ReportCenter'
+import SettingsCenter from './pages/Settings/SettingsCenter'
 
 function App() {
   const [records, setRecords] = useState(() => {
@@ -31,6 +32,7 @@ function App() {
     if (currentPage === 'analytics') return <AnalyticsCenter records={records} />
     if (currentPage === 'ai') return <AICenter records={records} />
     if (currentPage === 'reports') return <ReportCenter records={records} />
+    if (currentPage === 'settings') return <SettingsCenter />
 
     return <Dashboard records={records} />
   }
